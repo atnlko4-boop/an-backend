@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Page {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug            String   @unique
+  title           String
+  metaTitle       String?
+  metaDescription String?
+  focusKeyword    String?
+  canonicalUrl    String?
+  ogImage         String?
+  content         Json
+  isPublished     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Blog {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug            String   @unique
+  title           String
+  excerpt         String?
+  content         String
+  featuredImage   String?
+  category        String?
+  tags            String[]
+  metaTitle       String?
+  metaDescription String?
+  focusKeyword    String?
+  canonicalUrl    String?
+  ogImage         String?
+  published       Boolean  @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Enquiry {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  company           String?
+  email             String
+  phone             String?
+  serviceInterested String?
+  message           String
+  status            String   @default("New") // New, Contacted, Qualified, Closed
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Subscriber {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+}
+
+model Media {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  filename     String
+  originalName String
+  url          String
+  secureUrl    String
+  publicId     String
+  format       String
+  size         Int
+  width        Int?
+  height       Int?
+  altText      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSettings {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  siteTitle       String
+  metaDescription String?
+  ogImage         String?
+  twitterImage    String?
+  robotsTxt       String?
+  updatedAt       DateTime @updatedAt
+}
+
+model Testimonial {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  clientName   String
+  designation  String?
+  companyName  String
+  companyLogo  String?
+  testimonial  String
+  rating       Int
+  location     String?
+  featured     Boolean  @default(false)
+  isPublished  Boolean  @default(false)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model RouteSEO {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  route           String   @unique // e.g. "/services/factory-compliance"
+  metaTitle       String?
+  metaDescription String?
+  focusKeyword    String?
+  canonicalUrl    String?
+  ogImage         String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AnalyticsSettings {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  ga4Id           String?  // Google Analytics 4 Measurement ID
+  gscId           String?  // Google Search Console Verification ID
+  clarityId       String?  // Microsoft Clarity Project ID
+  updatedAt       DateTime @updatedAt
+}

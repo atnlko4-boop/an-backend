@@ -1,0 +1,84 @@
+import { BlogsService } from './blogs.service';
+export declare class BlogsController {
+    private readonly service;
+    constructor(service: BlogsService);
+    findAll(published: string): Promise<{
+        id: string;
+        createdAt: Date;
+        metaDescription: string | null;
+        ogImage: string | null;
+        updatedAt: Date;
+        slug: string;
+        title: string;
+        metaTitle: string | null;
+        focusKeyword: string | null;
+        canonicalUrl: string | null;
+        content: string;
+        excerpt: string | null;
+        featuredImage: string | null;
+        category: string | null;
+        tags: string[];
+        published: boolean;
+        publishedAt: Date | null;
+    }[]>;
+    findOne(idOrSlug: string): Promise<{
+        id: string;
+        createdAt: Date;
+        metaDescription: string | null;
+        ogImage: string | null;
+        updatedAt: Date;
+        slug: string;
+        title: string;
+        metaTitle: string | null;
+        focusKeyword: string | null;
+        canonicalUrl: string | null;
+        content: string;
+        excerpt: string | null;
+        featuredImage: string | null;
+        category: string | null;
+        tags: string[];
+        published: boolean;
+        publishedAt: Date | null;
+    }>;
+    create(data: any): Promise<{
+        id: string;
+        createdAt: Date;
+        metaDescription: string | null;
+        ogImage: string | null;
+        updatedAt: Date;
+        slug: string;
+        title: string;
+        metaTitle: string | null;
+        focusKeyword: string | null;
+        canonicalUrl: string | null;
+        content: string;
+        excerpt: string | null;
+        featuredImage: string | null;
+        category: string | null;
+        tags: string[];
+        published: boolean;
+        publishedAt: Date | null;
+    }>;
+    update(id: string, data: any): Promise<{
+        id: string;
+        createdAt: Date;
+        metaDescription: string | null;
+        ogImage: string | null;
+        updatedAt: Date;
+        slug: string;
+        title: string;
+        metaTitle: string | null;
+        focusKeyword: string | null;
+        canonicalUrl: string | null;
+        content: string;
+        excerpt: string | null;
+        featuredImage: string | null;
+        category: string | null;
+        tags: string[];
+        published: boolean;
+        publishedAt: Date | null;
+    }>;
+    remove(id: string): Promise<{
+        success: boolean;
+    }>;
+}
