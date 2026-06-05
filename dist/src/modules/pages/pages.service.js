@@ -23,13 +23,11 @@ let PagesService = class PagesService {
         });
     }
     async findOne(idOrSlug) {
+        const isObjectId = /^[0-9a-fA-F]{24}$/.test(idOrSlug);
         const page = await this.prisma.page.findFirst({
-            where: {
-                OR: [
-                    { id: idOrSlug },
-                    { slug: idOrSlug }
-                ]
-            }
+            where: isObjectId
+                ? { OR: [{ id: idOrSlug }, { slug: idOrSlug }] }
+                : { slug: idOrSlug }
         });
         if (!page)
             throw new common_1.NotFoundException('Page not found');

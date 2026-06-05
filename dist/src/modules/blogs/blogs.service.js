@@ -24,13 +24,11 @@ let BlogsService = class BlogsService {
         });
     }
     async findOne(idOrSlug) {
+        const isObjectId = /^[0-9a-fA-F]{24}$/.test(idOrSlug);
         const blog = await this.prisma.blog.findFirst({
-            where: {
-                OR: [
-                    { id: idOrSlug },
-                    { slug: idOrSlug }
-                ]
-            }
+            where: isObjectId
+                ? { OR: [{ id: idOrSlug }, { slug: idOrSlug }] }
+                : { slug: idOrSlug }
         });
         if (!blog)
             throw new common_1.NotFoundException('Blog not found');
